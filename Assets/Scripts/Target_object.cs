@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Target_object : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public Transform target;
     private GameObject cube;
     public float box_scale = 10;
@@ -24,10 +24,11 @@ public class Target_object : MonoBehaviour
 
         // 큐브의 위치를 target의 전면 위치로 설정
         cube.transform.position = frontPosition;
-        // Create a new transparent material
+        
+        // 큐브를 반투명하게 설정  
         Material transparentMaterial = new Material(Shader.Find("Standard"));
-        transparentMaterial.color = new UnityEngine.Color(0, 0, 0, 0.2f);  // 50% transparent
-        transparentMaterial.SetFloat("_Mode", 3); // Set rendering mode to Transparent
+        transparentMaterial.color = new UnityEngine.Color(0, 0, 0, 0.2f);  // 
+        transparentMaterial.SetFloat("_Mode", 3); 
         transparentMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         transparentMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
         transparentMaterial.SetInt("_ZWrite", 0);
@@ -36,18 +37,18 @@ public class Target_object : MonoBehaviour
         transparentMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
         transparentMaterial.renderQueue = 3000;
 
-        // Apply the transparent material to the cube
+        // 큐브에 위에 작성한 설정 적용하기
         cube.GetComponent<Renderer>().material = transparentMaterial;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        // Move at a speed of 1.4 meters per second
+        // 이동 속도 설정
         Vector3 movement = transform.forward * Speed * Time.deltaTime;
         transform.position += movement;
 
-        // Update the position of the cube when the target moves
+        // Target의 움직임에 맞게 큐브도 움직이게 만듦
         Vector3 frontPosition = target.position + target.forward * (target.localScale.z / 2) + target.forward * box_scale / 2;
         cube.transform.position = frontPosition;
         cube.transform.rotation = target.rotation;

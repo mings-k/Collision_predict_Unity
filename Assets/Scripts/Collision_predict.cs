@@ -54,7 +54,7 @@ public class Collision_predict : MonoBehaviour
     void Update()
     {
         // 충돌 시 충돌 여부 시각화
-        text1.text = "Collision: O";
+        text1.text = "Collision: X";
 
         // 충돌 감지 (Boxcast가 동적 객체와 접촉)
         if (Raycast.Collision == true)
@@ -78,13 +78,15 @@ public class Collision_predict : MonoBehaviour
                 // 충돌 여부 판별
                 if ((d < radius1 + radius2))
                 {
+                    text1.text = "Collision: O";
                     // 충돌 시간 저장하고 반복문 종료
                     collisionTime = time;
                     break;
                 }
+
                 else
                 {
-                    
+                    text1.text = "Collision: X";
                 }
                 
             }
